@@ -1,67 +1,75 @@
 # Data-cleaning-Task_1
 This repository is for Data cleaning on messy data file
 
-File: raw_messy_dataset.csv
 
-Description: A raw dataset with missing values, inconsistent data formats, and outliers.
+📁 Dataset
+		File used: raw_messy_dataset.csv
+		
+		Output file: Cleaned Data (CSV)
 
+🔧 Libraries Used
+		
+		import pandas as pd
+		import numpy as np
+		import seaborn as sns
+		import matplotlib.pyplot as plt
+📝 Steps Performed
+1. 📥 Load the Dataset
 
-
-1. 📦 Importing Libraries
-   
-				import pandas as pd
-				import numpy as np
-				import seaborn as sns
-				import matplotlib.pyplot as plt
-
-   		These libraries are essential for data manipulation (pandas, numpy) and visualization (seaborn, matplotlib).
-
-3. 📄 Loading the Dataset
-
-				df = pd.read_csv("raw_messy_dataset.csv")
-				Load the messy dataset into a DataFrame.
-
-3. ℹ️ Basic Data Information
-
-				df.info()
-				df.describe()
-				df.head()
-				Initial inspection: types, null values, and summary statistics.
-
-4. 🧼 Handling Missing Values
-				Identify null values in the dataset.
-				
-				Fill or drop them using:
-				df['Column_Name'].fillna(value, inplace=True)
-				or
-				df.dropna(inplace=True)
+		df = pd.read_csv("raw_messy_dataset.csv")
+		Read the CSV file into a pandas DataFrame for processing.
 
 
-5. 🗓️ Date Format Standardization
-					
-					df['Visit Date'] = pd.to_datetime(df['Visit Date'], errors='coerce')
-					df['Visit Date'] = df['Visit Date'].dt.strftime('%Y-%m-%d')
-					Convert various date formats into a consistent format.
+3. 🔍 Initial Inspection
+		
+		df.info()
+		Use info() to check column types, null values, and overall structure.
 
-6. 🧹 Cleaning Text/Strings
-   
-					df['City'] = df['City'].str.strip().str.title()
-					Standardize casing and remove extra spaces.
+5. ❌ Remove Duplicate Rows
 
-8. 💰 Cleaning Numeric Columns
-					df['Treatment Cost'] = pd.to_numeric(df['Treatment Cost'], errors='coerce')
-					Convert cost columns to proper numeric types, replacing errors with NaN.
+		df.duplicated().sum()
+		df.drop_duplicates(inplace=True)
+		Identify and remove duplicate rows to ensure data accuracy.
 
-9. 📊 Visualizing the Data
-					sns.heatmap(df.isnull())
-					plt.show()
-					Use heatmaps and other visual tools to inspect data quality.
+7. 🧓 Age Column Cleaning
+		Convert to numeric, replace invalids with NaN, and fill missing values with median.
+		df["Age"] = pd.to_numeric(df["Age"], errors="coerce")
+		df["Age"].fillna(df["Age"].median(), inplace=True)
+		Convert to numeric and fill missing values using the median.
 
-10. 🧾 Exporting the Cleaned Data
-					df.to_csv("cleaned_dataset.csv", index=False)
-					Save the final cleaned data for further analysis or use.
+9. ⚧ Gender Standardization
+		Replace inconsistent labels (like 'M', 'F', or blanks) with Male, Female, and None.
+		df['Gender'] = df['Gender'].replace({'M': 'Male', 'F': 'Female', ' ': 'None'})
+		Replace short or empty entries like 'M', 'F', or blanks with full labels like 'Male', 'Female', and 'None'.
+
+
+11. 📧 Handle Missing Emails
+	
+		df['Email'].fillna("-", inplace=True)
+			Fill missing email entries with a placeholder "-".
+
+13. 📅 Date Column Formatting
+	
+		df['Join_Date'] = pd.to_datetime(df['Join_Date'], errors='coerce')
+		Convert Join_Date to datetime format.
+
+15. 💸 Salary Column Cleaning
+		
+		df["Salary"] = pd.to_numeric(df["Salary"], errors="coerce")
+		Convert Salary column to numeric, invalid entries become NaN.
+
+17. 🏢 Department Column Imputation
+		df["Department"].fillna(df["Department"].mode()[0], inplace=True)
+		Fill missing department values with the most frequent department.
+
+
+19. 💾 Save Cleaned Data
+	
+		df.to_csv("Cleaned Data")
+		Cleaned dataset saved as: Cleaned Data (CSV file)
 
 ✅ Output
+Cleaned dataset saved as: Cleaned Data (CSV file)
 Cleaned and well-structured dataset: cleaned_dataset.csv
 Issues like missing values, mixed types, and inconsistent formatting are resolved.
 
