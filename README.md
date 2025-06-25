@@ -32,7 +32,7 @@ Identify null values in the dataset.
 
 Fill or drop them using:
 df['Column_Name'].fillna(value, inplace=True)
-# or
+or
 df.dropna(inplace=True)
 
 
