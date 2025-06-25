@@ -3,8 +3,8 @@ This repository is for Data cleaning on messy data file
 
 
 📁 Dataset
+
 		File used: raw_messy_dataset.csv
-		
 		Output file: Cleaned Data (CSV)
 
 🔧 Libraries Used
@@ -32,12 +32,14 @@ This repository is for Data cleaning on messy data file
 		Identify and remove duplicate rows to ensure data accuracy.
 
 7. 🧓 Age Column Cleaning
+   
 		Convert to numeric, replace invalids with NaN, and fill missing values with median.
 		df["Age"] = pd.to_numeric(df["Age"], errors="coerce")
 		df["Age"].fillna(df["Age"].median(), inplace=True)
 		Convert to numeric and fill missing values using the median.
 
 9. ⚧ Gender Standardization
+
 		Replace inconsistent labels (like 'M', 'F', or blanks) with Male, Female, and None.
 		df['Gender'] = df['Gender'].replace({'M': 'Male', 'F': 'Female', ' ': 'None'})
 		Replace short or empty entries like 'M', 'F', or blanks with full labels like 'Male', 'Female', and 'None'.
@@ -59,6 +61,7 @@ This repository is for Data cleaning on messy data file
 		Convert Salary column to numeric, invalid entries become NaN.
 
 17. 🏢 Department Column Imputation
+    
 		df["Department"].fillna(df["Department"].mode()[0], inplace=True)
 		Fill missing department values with the most frequent department.
 
